@@ -7,7 +7,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { markOrderPaid } from "@/lib/db/order";
 import { PayjsProvider } from "@/lib/pay/payjs";
 
-export async function POST(request: NextRequest, context: { cloudflare: { env: { DB: D1Database; PAYJS_API_KEY: string; PAYJS_MCHID: string; NOTIFY_URL: string } } }) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest, context: { cloudflare: { env: {
     }
 
     // 验证签名
-    const payjs = new PayjsProvider(context.cloudflare.env.PAYJS_API_KEY || "");
+    const payjs = new PayjsProvider(process.env.PAYJS_API_KEY || "");
     const isValid = payjs.verifyWebhook({
       payjsOrderId,
       amount,
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest, context: { cloudflare: { env: {
     }
 
     // 获取数据库
-    const db = context.cloudflare.env.DB;
+    const db = (request as unknown as { env: { DB: D1Database } }).env?.DB;
 
     // 标记订单已付款（带幂等检查和金额验证）
     const result = await markOrderPaid(db, payjsOrderId, amount);

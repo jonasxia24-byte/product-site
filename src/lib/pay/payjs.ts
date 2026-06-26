@@ -1,20 +1,17 @@
 // Payjs 支付实现
 // 文档: https://help.payjs.cn/
+// 使用 js-md5 替代 Node.js crypto，兼容 Edge Runtime
 
-import crypto from "crypto";
+import { md5 } from "js-md5";
 import type { PaymentProvider, PaymentOrder, PaymentResult, WebhookData } from "./provider";
 
 export class PayjsProvider implements PaymentProvider {
   name = "payjs";
   private apiKey: string;
   private apiUrl: string;
-  private mchid: string;
-  private notifyUrl: string;
 
-  constructor(apiKey: string, mchid = "", notifyUrl = "", apiUrl = "https://payjs.cn/api") {
+  constructor(apiKey: string, apiUrl = "https://payjs.cn/api") {
     this.apiKey = apiKey;
-    this.mchid = mchid;
-    this.notifyUrl = notifyUrl;
     this.apiUrl = apiUrl;
   }
 
@@ -26,22 +23,18 @@ export class PayjsProvider implements PaymentProvider {
       .map((k) => `${k}=${params[k]}`)
       .join("&");
 
-    return crypto
-      .createHash("md5")
-      .update(sorted + "&key=" + this.apiKey)
-      .digest("hex")
-      .toUpperCase();
+    return md5(sorted + "&key=" + this.apiKey).toUpperCase();
   }
 
   // 创建支付订单
   async createOrder(order: PaymentOrder): Promise<PaymentResult> {
     try {
       const params: Record<string, unknown> = {
-        mchid: this.getMchId(),
+        mchid: process.env.PAYJS_MCHID || "",
         total_fee: order.amount, // Payjs 用分
         out_trade_no: order.orderId,
         body: order.productName,
-        notify_url: this.getNotifyUrl(),
+        notify_url: process.env.NOTIFY_URL || "",
       };
 
       params.sign = this.sign(params);
@@ -105,15 +98,5 @@ export class PayjsProvider implements PaymentProvider {
     } catch {
       return { paid: false };
     }
-  }
-
-  // 从环境变量获取商户号
-  private getMchId(): string {
-    return this.mchid;
-  }
-
-  // 获取回调地址
-  private getNotifyUrl(): string {
-    return this.notifyUrl;
   }
 }

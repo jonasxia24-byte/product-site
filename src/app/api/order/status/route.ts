@@ -6,7 +6,7 @@ export const runtime = "edge";
 import { NextRequest, NextResponse } from "next/server";
 import { getOrderStatus } from "@/lib/db/order";
 
-export async function GET(request: NextRequest, context: { cloudflare: { env: { DB: D1Database } } }) {
+export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const orderId = searchParams.get("orderId");
@@ -16,7 +16,7 @@ export async function GET(request: NextRequest, context: { cloudflare: { env: { 
     }
 
     // 获取数据库
-    const db = context.cloudflare.env.DB;
+    const db = (request as unknown as { env: { DB: D1Database } }).env?.DB;
 
     const order = await getOrderStatus(db, orderId);
 
