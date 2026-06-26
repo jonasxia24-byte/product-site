@@ -8,9 +8,9 @@ pages_build_output_dir = ".vercel/output/static"
 [[d1_databases]]
 binding = "DB"
 database_name = "product-site-db"
-database_id = "YOUR_D1_DATABASE_ID"  # 部署时替换
+database_id = "6e43f917-a9e6-49b4-8830-5b9d5017ec0a"
 
 # 环境变量（在 Cloudflare Dashboard 或用 wrangler secret 设置）
 # PAYJS_API_KEY = "your_payjs_api_key"
 # PAYJS_MCHID = "your_payjs_mchid"
-# NOTIFY_URL = "https://your-domain.com/api/webhook"
+# NOTIFY_URL = "https://tripawalpha.com/api/webhook"
