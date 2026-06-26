@@ -1,10 +1,12 @@
 // GET /api/order/detail?orderId=xxx
 // 获取订单交付内容（支持多种交付方式）
 
+export const runtime = "edge";
+
 import { NextRequest, NextResponse } from "next/server";
 import { getOrderDelivery } from "@/lib/db/order";
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest, context: { cloudflare: { env: { DB: D1Database } } }) {
   try {
     const { searchParams } = new URL(request.url);
     const orderId = searchParams.get("orderId");
@@ -13,7 +15,7 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "缺少订单号" }, { status: 400 });
     }
 
-    const db = (request as unknown as { env: { DB: D1Database } }).env?.DB;
+    const db = context.cloudflare.env.DB;
     const result = await getOrderDelivery(db, orderId);
 
     if (!result.success) {

@@ -1,13 +1,15 @@
 // POST /api/checkout
 // 创建支付订单
 
+export const runtime = "edge";
+
 import { NextRequest, NextResponse } from "next/server";
 import { createOrder, updateOrderPayjsId } from "@/lib/db/order";
 import { PayjsProvider } from "@/lib/pay/payjs";
 import { checkRateLimit } from "@/lib/utils/rate-limit";
 import { products } from "@/data/products";
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest, context: { cloudflare: { env: { DB: D1Database; PAYJS_API_KEY: string; PAYJS_MCHID: string; NOTIFY_URL: string } } }) {
   try {
     // 限流：每分钟最多 10 次
     const ip = request.headers.get("x-forwarded-for") || "unknown";
@@ -35,13 +37,17 @@ export async function POST(request: NextRequest) {
     const priceInFen = product.price * 100; // 元 → 分（Payjs 使用分）
 
     // 获取 D1 数据库（Cloudflare 环境）
-    const db = (request as unknown as { env: { DB: D1Database } }).env?.DB;
+    const db = context.cloudflare.env.DB;
 
     // 创建内部订单（含商品快照）
     const order = await createOrder(db, productId, product.name, priceInFen, priceInFen);
 
     // 调用 Payjs 创建支付
-    const payjs = new PayjsProvider(process.env.PAYJS_API_KEY || "");
+    const payjs = new PayjsProvider(
+      context.cloudflare.env.PAYJS_API_KEY || "",
+      context.cloudflare.env.PAYJS_MCHID || "",
+      context.cloudflare.env.NOTIFY_URL || ""
+    );
     const result = await payjs.createOrder({
       orderId: order.id,
       amount: priceInFen,

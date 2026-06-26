@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { products, siteName, contactInfo } from "@/data/products";
 import Link from "next/link";
 import ProductBuySection from "@/components/ProductBuySection";

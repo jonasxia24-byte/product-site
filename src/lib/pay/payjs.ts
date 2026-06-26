@@ -8,9 +8,13 @@ export class PayjsProvider implements PaymentProvider {
   name = "payjs";
   private apiKey: string;
   private apiUrl: string;
+  private mchid: string;
+  private notifyUrl: string;
 
-  constructor(apiKey: string, apiUrl = "https://payjs.cn/api") {
+  constructor(apiKey: string, mchid = "", notifyUrl = "", apiUrl = "https://payjs.cn/api") {
     this.apiKey = apiKey;
+    this.mchid = mchid;
+    this.notifyUrl = notifyUrl;
     this.apiUrl = apiUrl;
   }
 
@@ -105,11 +109,11 @@ export class PayjsProvider implements PaymentProvider {
 
   // 从环境变量获取商户号
   private getMchId(): string {
-    return process.env.PAYJS_MCHID || "";
+    return this.mchid;
   }
 
   // 获取回调地址
   private getNotifyUrl(): string {
-    return process.env.NOTIFY_URL || "";
+    return this.notifyUrl;
   }
 }
