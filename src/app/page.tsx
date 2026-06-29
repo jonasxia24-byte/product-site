@@ -1,5 +1,57 @@
-import { products, siteName, siteDesc, contactInfo } from "@/data/products";
+import { products, siteName, siteDesc, contactInfo, type ProductCategory } from "@/data/products";
 import Link from "next/link";
+
+const categories: { key: ProductCategory; label: string }[] = [
+  { key: "重点推荐", label: "⭐ 重点推荐" },
+  { key: "指标类", label: "📈 指标类" },
+  { key: "工具包", label: "🧰 工具包" },
+  { key: "其他", label: "📦 其他" },
+];
+
+function categoryProducts(cat: ProductCategory) {
+  return products.filter((p) => p.category === cat && !p.disabled);
+}
+
+function ProductCard({ product }: { product: (typeof products)[number] }) {
+  return (
+    <Link
+      href={product.disabled ? "#" : `/product/${product.id}`}
+      className={`group relative flex flex-col rounded-2xl bg-white border border-[#e5e9f0] overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-[#2f6fed]/8 hover:border-[#2f6fed]/30 ${
+        product.disabled ? "opacity-50 pointer-events-none" : ""
+      }`}
+    >
+      <div className="relative h-48 bg-gradient-to-br from-[#f0f4ff] to-[#e8f4f8] flex items-center justify-center overflow-hidden">
+        {product.image && product.image !== "/products/placeholder.png" ? (
+          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+        ) : (
+          <div className="text-6xl opacity-20">📊</div>
+        )}
+        {product.tag && (
+          <span className="absolute top-3 right-3 px-2.5 py-0.5 text-xs font-bold text-white bg-[#2f6fed] rounded-full">
+            {product.tag}
+          </span>
+        )}
+      </div>
+      <div className="flex flex-col flex-1 p-5">
+        <h3 className="text-lg font-bold text-[#111827] mb-2">{product.name}</h3>
+        <p className="text-sm text-[#657086] leading-relaxed mb-4 flex-1 line-clamp-2">{product.subtitle}</p>
+        {product.disabled ? (
+          <span className="text-sm font-semibold text-[#657086]">Coming Soon</span>
+        ) : (
+          <div className="flex items-center justify-between">
+            <span className="text-xl font-extrabold text-[#2f6fed]">¥{product.price}</span>
+            <span className="inline-flex items-center gap-1.5 px-5 py-2 text-sm font-bold text-white bg-[#2f6fed] rounded-lg group-hover:bg-[#2563eb] transition-colors">
+              查看详情
+              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+        )}
+      </div>
+    </Link>
+  );
+}
 
 export default function Home() {
   return (
@@ -9,7 +61,7 @@ export default function Home() {
         <nav className="mx-auto flex items-center justify-between h-16 px-6 max-w-[1120px]">
           <Link href="/" className="flex items-center gap-3 font-extrabold text-[#111827] text-lg">
             <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#2f6fed] to-[#14b8c8] flex items-center justify-center text-white text-sm font-bold">
-              {siteName.charAt(0) || "S"}
+              {siteName.charAt(0)}
             </div>
             <span>{siteName}</span>
           </Link>
@@ -25,54 +77,21 @@ export default function Home() {
         <p className="text-lg text-[#657086] max-w-xl mx-auto">{siteDesc}</p>
       </section>
 
-      {/* 产品网格 */}
-      <section className="mx-auto max-w-[1120px] px-6 pb-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((product) => (
-            <Link
-              key={product.id}
-              href={product.disabled ? "#" : `/product/${product.id}`}
-              className={`group relative flex flex-col rounded-2xl bg-white border border-[#e5e9f0] overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-[#2f6fed]/8 hover:border-[#2f6fed]/30 ${
-                product.disabled ? "opacity-50 pointer-events-none" : ""
-              }`}
-            >
-              {/* 产品图片 */}
-              <div className="relative h-48 bg-gradient-to-br from-[#f0f4ff] to-[#e8f4f8] flex items-center justify-center overflow-hidden">
-                {product.image && product.image !== "/products/placeholder.png" ? (
-                  <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-                ) : (
-                  <div className="text-6xl opacity-20">📊</div>
-                )}
-                {product.tag && (
-                  <span className="absolute top-3 right-3 px-2.5 py-0.5 text-xs font-bold text-white bg-[#2f6fed] rounded-full">
-                    {product.tag}
-                  </span>
-                )}
-              </div>
-
-              {/* 产品信息 */}
-              <div className="flex flex-col flex-1 p-5">
-                <h2 className="text-lg font-bold text-[#111827] mb-2">{product.name}</h2>
-                <p className="text-sm text-[#657086] leading-relaxed mb-4 flex-1 line-clamp-2">{product.subtitle}</p>
-
-                {product.disabled ? (
-                  <span className="text-sm font-semibold text-[#657086]">Coming Soon</span>
-                ) : (
-                  <div className="flex items-center justify-between">
-                    <span className="text-xl font-extrabold text-[#2f6fed]">¥{product.price}</span>
-                    <span className="inline-flex items-center gap-1.5 px-5 py-2 text-sm font-bold text-white bg-[#2f6fed] rounded-lg group-hover:bg-[#2563eb] transition-colors">
-                      查看详情
-                      <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </span>
-                  </div>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+      {/* 按分类展示 */}
+      {categories.map(({ key, label }) => {
+        const items = categoryProducts(key);
+        if (items.length === 0) return null;
+        return (
+          <section key={key} className="mx-auto max-w-[1120px] px-6 pb-12">
+            <h2 className="text-2xl font-bold text-[#111827] mb-6">{label}</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {items.map((product) => (
+                <ProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          </section>
+        );
+      })}
 
       {/* 联系购买 */}
       <section className="mx-auto max-w-[1120px] px-6 pb-20">
@@ -95,7 +114,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#2f6fed] to-[#14b8c8] flex items-center justify-center text-white text-xs font-bold">
-                {siteName.charAt(0) || "S"}
+                {siteName.charAt(0)}
               </div>
               <span className="font-bold text-[#111827]">{siteName}</span>
             </div>

@@ -1,3 +1,5 @@
+export type ProductCategory = "重点推荐" | "指标类" | "工具包" | "其他";
+
 export interface Product {
   id: string;
   name: string;          // 产品名称
@@ -6,6 +8,7 @@ export interface Product {
   price: number;         // 价格（元）
   image: string;         // 产品图片路径，放 public/products/ 下
   tag?: string;          // 标签：热门/新品
+  category?: ProductCategory;  // 分类
   disabled?: boolean;    // 是否下架
 }
 
@@ -14,10 +17,48 @@ export interface Product {
 // 图片放 public/products/ 文件夹下
 // ============================================
 
-export const siteName = "三脚猫投资圈";
+export const siteName = "TripawAlpha猫哥资源站";
 export const siteDesc = "点击查看详情，获取来自猫哥的专业内容，提升你的投资决策效率";
 
 export const products: Product[] = [
+  // ⭐ 重点推荐
+  {
+    id: "product-04",
+    name: "零师缠论研习资料库",
+    subtitle: "看零师才是学缠的最好出路，已售100+",
+    description:
+      "这是一套系统整理的零师缠论学习资料库，收录目前较完整的公开教学内容，帮助学习者快速获取优质学习资源，避免四处寻找零散资料，大幅降低学习成本。\n\n资料涵盖零师早期核心理论、2017年后的录音课程、实盘教学、学习笔记及进阶思路，并提供精华版与完整版两个版本，满足不同阶段学习需求。通过系统梳理零师从早期到后期的理念演变，帮助学习者更加深入地理解缠论体系与实战交易逻辑。\n\n产品提供精华整理版（约600-700页）及完整版（2.3GB）两种选择，邮箱交付，并包含猫哥缠论答疑服务及猫哥茶话会交流群权益。\n\n精华版 99 元，完整版 199 元，适合希望系统学习零师缠论体系、减少资料搜集时间并提升学习效率的投资者。\n\n详情请阅读：https://mp.weixin.qq.com/s/fsXZEaC5BgyjALn1twlO3w",
+    price: 199,
+    image: "/products/零师缠论研习资料库.png",
+    tag: "热门",
+    category: "重点推荐",
+  },
+
+  // 📈 指标类
+  {
+    id: "product-03",
+    name: "波动猎手四代分时指标",
+    subtitle: "猫哥自用的分时指标，开袋即食",
+    description:
+      "这是一套专为通达信用户打造的盘中分时交易辅助工具，旨在帮助投资者更加客观地把握盘中支撑、压力及做T机会，减少情绪化交易，提高交易效率。\n\n产品采用猫哥自主优化的不对称策略模型，结合上下轨波动区间与多维度算法，避免传统分时指标信号单一、钝化及未来函数等常见问题。同时附赠经典 R-Breaker 突破策略定制版指标，可用于识别趋势突破与反转机会，满足不同交易风格的需求。\n\n产品包含波动猎手四代分时主图指标、RB突破分时主图指标、分时做T答疑权益及猫哥茶话会入群权益，并提供安装指导与售后支持。\n\n售价 168 元，适合具备一定股票交易基础、希望提升盘中做T及短线交易效率的投资者。（仅支持通达信电脑版）\n\n详情请阅读：https://mp.weixin.qq.com/s/_FdK32nIwXCYzMlcKKECjg",
+    price: 168,
+    image: "/products/波动猎手四代分时指标.png",
+    tag: "自用指标",
+    category: "指标类",
+  },
+
+  // 🧰 工具包
+  {
+    id: "product-02",
+    name: "「缠缠缠」初阶工具包",
+    subtitle: "缠论初学者必备，少走弯路套餐",
+    description:
+      "这是一套专为缠论初学者打造的系统化学习工具包，旨在帮助新手避开碎片化学习和盲目摸索，建立完整、高效的缠论学习路径。\n\n课程整合了猫哥多年实战学习经验，精选缠论原文配图书籍、学习指标、优质学习资料及系统化学习路线，并配套一年答疑服务，帮助学习者从基础概念、笔、中枢、买卖点到指标辅助逐步建立完整的缠论框架，减少走弯路和重复试错的成本。\n\n产品包含两本全彩缠论原文配图书籍（不需要纸质书立减100元）、电脑版及手机版缠论指标、多套辅助资料和经典交易书籍等内容。购买工具包的朋友赠送零师全套学习资料包（价值199）。指标仅作为辅助工具，请勿作为实战使用，仅用于帮助在初期学缠论的时候更直观理解缠论笔、段、走势等基本部件。\n\n售价 799 元，适合零基础或刚接触缠论、希望系统入门并长期学习提升的投资者。\n\n详情请阅读：https://mp.weixin.qq.com/s/AyDXezrUt-NL_K0CqU6v-w",
+    price: 799,
+    image: "/products/缠缠缠初阶工具包.png",
+    tag: "缠论工具包",
+    category: "工具包",
+  },
   {
     id: "product-01",
     name: "零缠同构笔操盘图谱",
@@ -27,81 +68,49 @@ export const products: Product[] = [
     price: 188,
     image: "/products/同构笔图谱.png",
     tag: "缠论工具",
+    category: "工具包",
   },
-  {
-    id: "product-02",
-    name: "产品名称2",
-    subtitle: "一句话说清楚这个产品是什么",
-    description: "这里是详细的产品介绍。\n\n分段写，讲清楚产品内容和价值。",
-    price: 199,
-    image: "/products/placeholder.png",
-  },
-  {
-    id: "product-03",
-    name: "产品名称3",
-    subtitle: "一句话说清楚这个产品是什么",
-    description: "这里是详细的产品介绍。",
-    price: 49,
-    image: "/products/placeholder.png",
-    tag: "新品",
-  },
-  {
-    id: "product-04",
-    name: "产品名称4",
-    subtitle: "一句话说清楚这个产品是什么",
-    description: "这里是详细的产品介绍。",
-    price: 149,
-    image: "/products/placeholder.png",
-  },
+
+  // 📦 其他/占位
   {
     id: "product-05",
-    name: "产品名称5",
-    subtitle: "一句话说清楚这个产品是什么",
-    description: "这里是详细的产品介绍。",
-    price: 79,
+    name: "更多资料敬请期待",
+    subtitle: "持续更新中",
+    description: "新的金融资料会在这里上架，敬请期待。",
+    price: 0,
     image: "/products/placeholder.png",
+    disabled: true,
+    category: "其他",
   },
   {
     id: "product-06",
-    name: "产品名称6",
-    subtitle: "一句话说清楚这个产品是什么",
-    description: "这里是详细的产品介绍。",
-    price: 299,
+    name: "更多资料敬请期待",
+    subtitle: "持续更新中",
+    description: "新的金融资料会在这里上架，敬请期待。",
+    price: 0,
     image: "/products/placeholder.png",
+    disabled: true,
+    category: "其他",
   },
   {
     id: "product-07",
-    name: "产品名称7",
-    subtitle: "一句话说清楚这个产品是什么",
-    description: "这里是详细的产品介绍。",
-    price: 59,
+    name: "更多资料敬请期待",
+    subtitle: "持续更新中",
+    description: "新的金融资料会在这里上架，敬请期待。",
+    price: 0,
     image: "/products/placeholder.png",
+    disabled: true,
+    category: "其他",
   },
   {
     id: "product-08",
-    name: "产品名称8",
-    subtitle: "一句话说清楚这个产品是什么",
-    description: "这里是详细的产品介绍。",
-    price: 129,
-    image: "/products/placeholder.png",
-  },
-  {
-    id: "product-09",
     name: "更多资料敬请期待",
     subtitle: "持续更新中",
     description: "新的金融资料会在这里上架，敬请期待。",
     price: 0,
     image: "/products/placeholder.png",
     disabled: true,
-  },
-  {
-    id: "product-10",
-    name: "更多资料敬请期待",
-    subtitle: "持续更新中",
-    description: "新的金融资料会在这里上架，敬请期待。",
-    price: 0,
-    image: "/products/placeholder.png",
-    disabled: true,
+    category: "其他",
   },
 ];
 
