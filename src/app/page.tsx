@@ -21,9 +21,8 @@ export default function Home() {
 
       {/* Hero */}
       <section className="mx-auto max-w-[1120px] px-6 pt-16 pb-10 text-center">
-        <p className="text-sm font-semibold text-[#2f6fed] tracking-wide mb-3">Product Hub</p>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-[#111827] mb-4">{siteDesc}</h1>
-        <p className="text-lg text-[#657086] max-w-xl mx-auto">选择你需要的资料，获取专业内容，提升你的投资决策效率。</p>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-[#111827] mb-4">{siteName}</h1>
+        <p className="text-lg text-[#657086] max-w-xl mx-auto">{siteDesc}</p>
       </section>
 
       {/* 产品网格 */}
