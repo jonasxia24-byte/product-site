@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "金融资料站 - 精选金融资料·一站式获取",
-  description: "精选金融资料，涵盖研报、数据、策略、模板，一站式获取。",
+  title: "三脚猫投资圈 - 猫哥的专业投资资料",
+  description: "来自猫哥的专业投资资料，提升你的投资决策效率。",
   icons: {
     icon: "/favicon.ico",
   },

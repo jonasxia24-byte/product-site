@@ -96,8 +96,6 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         <div className="mt-6 text-center text-sm text-[#657086]">
           如有问题，请联系{" "}
           {contactInfo.wechat && <span>微信：{contactInfo.wechat}</span>}
-          {contactInfo.wechat && contactInfo.email && <span> | </span>}
-          {contactInfo.email && <span>邮箱：{contactInfo.email}</span>}
         </div>
       </main>
 

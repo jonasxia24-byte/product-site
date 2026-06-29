@@ -14,8 +14,8 @@ export interface Product {
 // 图片放 public/products/ 文件夹下
 // ============================================
 
-export const siteName = "金融资料站"; // TODO: 改成你的网站名
-export const siteDesc = "精选金融资料 · 一站式获取"; // TODO: 改成你的描述
+export const siteName = "三脚猫投资圈";
+export const siteDesc = "点击查看详情，获取来自猫哥的专业内容，提升你的投资决策效率";
 
 export const products: Product[] = [
   {
@@ -109,6 +109,5 @@ export const products: Product[] = [
 // 联系方式（页脚显示）
 // ============================================
 export const contactInfo = {
-  wechat: "你的微信号", // TODO: 改成你的微信
-  email: "your@email.com", // TODO: 改成你的邮箱
+  wechat: "Kxkkk2020",
 };

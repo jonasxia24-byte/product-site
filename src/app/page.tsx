@@ -87,11 +87,6 @@ export default function Home() {
             <span className="text-sm text-[#657086]">微信：</span>
             <span className="text-lg font-bold text-[#111827]">{contactInfo.wechat}</span>
           </div>
-          {contactInfo.email && (
-            <p className="mt-4 text-sm text-[#657086]">
-              或邮箱：<a href={`mailto:${contactInfo.email}`} className="text-[#2f6fed] font-semibold hover:underline">{contactInfo.email}</a>
-            </p>
-          )}
         </div>
       </section>
 
@@ -107,7 +102,6 @@ export default function Home() {
             </div>
             <div className="flex items-center gap-6 text-sm text-[#657086]">
               {contactInfo.wechat && <span>微信：{contactInfo.wechat}</span>}
-              {contactInfo.email && <span>邮箱：{contactInfo.email}</span>}
             </div>
           </div>
           <div className="mt-6 pt-6 border-t border-[#e5e9f0] text-center text-xs text-[#657086]">
