@@ -75,6 +75,26 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 联系购买 */}
+      <section className="mx-auto max-w-[1120px] px-6 pb-20">
+        <div className="bg-gradient-to-br from-[#f0f4ff] to-[#e8f4f8] rounded-2xl border border-[#d4e0ff] p-8 md:p-10 text-center">
+          <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2f6fed] to-[#14b8c8] flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+            💬
+          </div>
+          <h2 className="text-2xl font-extrabold text-[#111827] mb-2">感兴趣？联系我购买</h2>
+          <p className="text-[#657086] mb-4">添加微信时请说明需要哪个产品</p>
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white rounded-xl border border-[#e5e9f0] shadow-sm">
+            <span className="text-sm text-[#657086]">微信：</span>
+            <span className="text-lg font-bold text-[#111827]">{contactInfo.wechat}</span>
+          </div>
+          {contactInfo.email && (
+            <p className="mt-4 text-sm text-[#657086]">
+              或邮箱：<a href={`mailto:${contactInfo.email}`} className="text-[#2f6fed] font-semibold hover:underline">{contactInfo.email}</a>
+            </p>
+          )}
+        </div>
+      </section>
+
       {/* 页脚 */}
       <footer id="contact" className="mt-auto border-t border-[#e5e9f0] bg-white">
         <div className="mx-auto max-w-[1120px] px-6 py-10">

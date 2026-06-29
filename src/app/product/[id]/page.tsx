@@ -1,13 +1,14 @@
-export const runtime = "edge";
-
 import { products, siteName, contactInfo } from "@/data/products";
 import Link from "next/link";
-import ProductBuySection from "@/components/ProductBuySection";
-import ProductImage from "@/components/ProductImage";
 
-export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const product = products.find((p) => p.id === id);
+export function generateStaticParams() {
+  return products
+    .filter((p) => !p.disabled)
+    .map((product) => ({ id: product.id }));
+}
+
+export default function ProductPage({ params }: { params: { id: string } }) {
+  const product = products.find((p) => p.id === params.id);
 
   if (!product || product.disabled) {
     return (
@@ -51,7 +52,11 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
         {/* 产品图片 */}
         <div className="w-full rounded-2xl overflow-hidden mb-8 bg-white border border-[#e5e9f0]">
-          <ProductImage src={product.image} alt={product.name} />
+          {product.image && product.image !== "/products/placeholder.png" ? (
+            <img src={product.image} alt={product.name} className="w-full h-auto object-cover" />
+          ) : (
+            <div className="h-48 flex items-center justify-center text-6xl opacity-20">📊</div>
+          )}
         </div>
 
         {/* 产品介绍 */}
@@ -69,14 +74,25 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           </div>
         </section>
 
-        {/* 购买区域（客户端组件） */}
-        <ProductBuySection
-          productId={product.id}
-          price={product.price}
-          deliveryLabel={product.deliveryLabel}
-        />
+        {/* 购买区域 */}
+        <div className="bg-gradient-to-br from-[#f0f4ff] to-[#e8f4f8] rounded-2xl border border-[#d4e0ff] p-8 text-center">
+          <div className="mb-4">
+            <span className="text-3xl font-extrabold text-[#2f6fed]">¥{product.price}</span>
+          </div>
+          <p className="text-[#657086] mb-1">感兴趣请直接联系购买：</p>
+          <p className="text-lg font-bold text-[#111827] mb-4">微信：{contactInfo.wechat}</p>
+          <a
+            href={`weixin://dl/chat?${contactInfo.wechat}`}
+            className="inline-flex items-center gap-2 px-8 py-3 text-base font-bold text-white bg-gradient-to-r from-[#2f6fed] to-[#14b8c8] rounded-xl hover:opacity-90 transition-opacity shadow-lg shadow-[#2f6fed]/20"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            加微信咨询购买
+          </a>
+        </div>
 
-        <div className="mt-4 text-center text-sm text-[#657086]">
+        <div className="mt-6 text-center text-sm text-[#657086]">
           如有问题，请联系{" "}
           {contactInfo.wechat && <span>微信：{contactInfo.wechat}</span>}
           {contactInfo.wechat && contactInfo.email && <span> | </span>}

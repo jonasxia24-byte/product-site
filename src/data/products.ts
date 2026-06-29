@@ -5,7 +5,6 @@ export interface Product {
   description: string;   // 详细介绍（用 \n\n 分段）
   price: number;         // 价格（元）
   image: string;         // 产品图片路径，放 public/products/ 下
-  deliveryLabel: string; // 交付方式展示文字
   tag?: string;          // 标签：热门/新品
   disabled?: boolean;    // 是否下架
 }
@@ -27,7 +26,6 @@ export const products: Product[] = [
       "这里是详细的产品介绍，说清楚这个资料包含什么内容、有什么价值、能帮用户解决什么问题。\n\n可以分多段写，每段讲一个重点。比如第一段讲产品是什么，第二段讲有什么价值，第三段讲怎么使用。\n\n建议 200-500 字，让用户看完能判断适不适合自己。",
     price: 99,
     image: "/products/placeholder.png",
-    deliveryLabel: "百度网盘下载",
     tag: "热门",
   },
   {
@@ -37,7 +35,6 @@ export const products: Product[] = [
     description: "这里是详细的产品介绍。\n\n分段写，讲清楚产品内容和价值。",
     price: 199,
     image: "/products/placeholder.png",
-    deliveryLabel: "百度网盘下载",
   },
   {
     id: "product-03",
@@ -46,7 +43,6 @@ export const products: Product[] = [
     description: "这里是详细的产品介绍。",
     price: 49,
     image: "/products/placeholder.png",
-    deliveryLabel: "直接查看",
     tag: "新品",
   },
   {
@@ -56,7 +52,6 @@ export const products: Product[] = [
     description: "这里是详细的产品介绍。",
     price: 149,
     image: "/products/placeholder.png",
-    deliveryLabel: "在线访问",
   },
   {
     id: "product-05",
@@ -65,7 +60,6 @@ export const products: Product[] = [
     description: "这里是详细的产品介绍。",
     price: 79,
     image: "/products/placeholder.png",
-    deliveryLabel: "百度网盘下载",
   },
   {
     id: "product-06",
@@ -74,7 +68,6 @@ export const products: Product[] = [
     description: "这里是详细的产品介绍。",
     price: 299,
     image: "/products/placeholder.png",
-    deliveryLabel: "百度网盘下载",
   },
   {
     id: "product-07",
@@ -83,7 +76,6 @@ export const products: Product[] = [
     description: "这里是详细的产品介绍。",
     price: 59,
     image: "/products/placeholder.png",
-    deliveryLabel: "直接查看",
   },
   {
     id: "product-08",
@@ -92,7 +84,6 @@ export const products: Product[] = [
     description: "这里是详细的产品介绍。",
     price: 129,
     image: "/products/placeholder.png",
-    deliveryLabel: "百度网盘下载",
   },
   {
     id: "product-09",
@@ -101,7 +92,6 @@ export const products: Product[] = [
     description: "新的金融资料会在这里上架，敬请期待。",
     price: 0,
     image: "/products/placeholder.png",
-    deliveryLabel: "",
     disabled: true,
   },
   {
@@ -111,7 +101,6 @@ export const products: Product[] = [
     description: "新的金融资料会在这里上架，敬请期待。",
     price: 0,
     image: "/products/placeholder.png",
-    deliveryLabel: "",
     disabled: true,
   },
 ];
