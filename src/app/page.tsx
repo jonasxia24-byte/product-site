@@ -65,14 +65,14 @@ function ProductCard({ product }: { product: (typeof products)[number] }) {
 
   if (isExternal) {
     return (
-      <a
-        href={product.link}
+      <Link
+        href={product.link!}
         target="_blank"
         rel="noopener noreferrer"
         className={`group relative flex flex-col rounded-2xl bg-white border border-[#e5e9f0] overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-[#2f6fed]/8 hover:border-[#2f6fed]/30 cursor-pointer ${product.disabled ? "opacity-50 pointer-events-none" : ""}`}
       >
         {cardContent}
-      </a>
+      </Link>
     );
   }
 
