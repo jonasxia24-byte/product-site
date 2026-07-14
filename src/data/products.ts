@@ -29,7 +29,7 @@ export const products: Product[] = [
     subtitle: "Pro 用户专享，在线查看 A 股缠论分笔，支持多周期切换",
     description: "https://tool.tripawalpha.com",
     price: 0,
-    image: "/products/同构笔工具入口.png",
+    image: "/products/placeholder.png",
     tag: "Pro 专享",
     category: "重点推荐",
     link: "https://tool.tripawalpha.com",

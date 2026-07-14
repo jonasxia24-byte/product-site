@@ -18,15 +18,13 @@ function ProductCard({ product }: { product: (typeof products)[number] }) {
   const cardContent = (
     <>
       <div className="relative h-48 bg-gradient-to-br from-[#f0f4ff] to-[#e8f4f8] flex items-center justify-center overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.name}
-          className="w-full h-full object-cover"
-          onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.parentElement!.querySelector(".fallback")?.classList.remove("hidden"); }}
-        />
-        <div className={`fallback hidden text-6xl opacity-20 ${isExternal ? "rotate-45" : ""}`}>
-          {isExternal ? "🔗" : "📊"}
-        </div>
+        {product.image && product.image !== "/products/placeholder.png" ? (
+          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+        ) : (
+          <div className={`text-6xl opacity-20 ${isExternal ? "rotate-45" : ""}`}>
+            {isExternal ? "🔗" : "📊"}
+          </div>
+        )}
         {product.tag && (
           <span className={`absolute top-3 right-3 px-2.5 py-0.5 text-xs font-bold text-white rounded-full ${
             product.tag === "Pro 专享" ? "bg-gradient-to-r from-[#f59e0b] to-[#d97706]" : "bg-[#2f6fed]"
