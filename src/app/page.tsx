@@ -13,21 +13,33 @@ function categoryProducts(cat: ProductCategory) {
 }
 
 function ProductCard({ product }: { product: (typeof products)[number] }) {
+  const isExternal = !!product.link;
+  const CardWrapper = isExternal ? "a" : Link;
+  const wrapperProps = isExternal
+    ? { href: product.link, target: "_blank", rel: "noopener noreferrer" }
+    : { href: product.disabled ? "#" : `/product/${product.id}` };
+
   return (
-    <Link
-      href={product.disabled ? "#" : `/product/${product.id}`}
+    <CardWrapper
+      {...wrapperProps}
       className={`group relative flex flex-col rounded-2xl bg-white border border-[#e5e9f0] overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-[#2f6fed]/8 hover:border-[#2f6fed]/30 ${
         product.disabled ? "opacity-50 pointer-events-none" : ""
-      }`}
+      } ${isExternal ? "cursor-pointer" : ""}`}
     >
       <div className="relative h-48 bg-gradient-to-br from-[#f0f4ff] to-[#e8f4f8] flex items-center justify-center overflow-hidden">
-        {product.image && product.image !== "/products/placeholder.png" ? (
-          <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
-        ) : (
-          <div className="text-6xl opacity-20">📊</div>
-        )}
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full h-full object-cover"
+          onError={(e) => { e.currentTarget.style.display = "none"; e.currentTarget.parentElement!.querySelector(".fallback")?.classList.remove("hidden"); }}
+        />
+        <div className={`fallback hidden text-6xl opacity-20 ${isExternal ? "rotate-45" : ""}`}>
+          {isExternal ? "🔗" : "📊"}
+        </div>
         {product.tag && (
-          <span className="absolute top-3 right-3 px-2.5 py-0.5 text-xs font-bold text-white bg-[#2f6fed] rounded-full">
+          <span className={`absolute top-3 right-3 px-2.5 py-0.5 text-xs font-bold text-white rounded-full ${
+            product.tag === "Pro 专享" ? "bg-gradient-to-r from-[#f59e0b] to-[#d97706]" : "bg-[#2f6fed]"
+          }`}>
             {product.tag}
           </span>
         )}
@@ -37,6 +49,16 @@ function ProductCard({ product }: { product: (typeof products)[number] }) {
         <p className="text-sm text-[#657086] leading-relaxed mb-4 flex-1 line-clamp-2">{product.subtitle}</p>
         {product.disabled ? (
           <span className="text-sm font-semibold text-[#657086]">Coming Soon</span>
+        ) : isExternal ? (
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-bold text-[#f59e0b]">Pro 用户登录使用 →</span>
+            <span className="inline-flex items-center gap-1.5 px-5 py-2 text-sm font-bold text-white bg-gradient-to-r from-[#f59e0b] to-[#d97706] rounded-lg hover:from-[#d97706] hover:to-[#b45309] transition-colors">
+              登录使用
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </span>
+          </div>
         ) : (
           <div className="flex items-center justify-between">
             <span className="text-xl font-extrabold text-[#2f6fed]">¥{product.price}</span>
@@ -49,7 +71,7 @@ function ProductCard({ product }: { product: (typeof products)[number] }) {
           </div>
         )}
       </div>
-    </Link>
+    </CardWrapper>
   );
 }
 
