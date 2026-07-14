@@ -75,6 +75,30 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           </div>
         </section>
 
+        {/* Pro 登录入口（仅 Pro 套餐显示） */}
+        {product.link && (
+          <section className="mb-10">
+            <div className="bg-gradient-to-br from-[#fffbeb] to-[#fef3c7] rounded-2xl border border-[#f59e0b]/30 p-8 text-center">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#f59e0b] to-[#d97706] flex items-center justify-center text-white text-xl font-bold mx-auto mb-4">
+                🔗
+              </div>
+              <h2 className="text-2xl font-extrabold text-[#111827] mb-2">已购 Pro 套餐？</h2>
+              <p className="text-[#657086] mb-6">使用购买时获得的账号密码登录，即可使用网页版同构笔辅助工具</p>
+              <a
+                href={product.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-8 py-3 text-base font-bold text-white bg-gradient-to-r from-[#f59e0b] to-[#d97706] rounded-xl hover:from-[#d97706] hover:to-[#b45309] transition-colors shadow-lg shadow-[#f59e0b]/20"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                登录使用工具
+              </a>
+            </div>
+          </section>
+        )}
+
         {/* 购买区域 */}
         <div className="bg-gradient-to-br from-[#f0f4ff] to-[#e8f4f8] rounded-2xl border border-[#d4e0ff] p-8 text-center">
           <div className="mb-4">

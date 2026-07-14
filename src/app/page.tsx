@@ -13,17 +13,20 @@ function categoryProducts(cat: ProductCategory) {
 }
 
 function ProductCard({ product }: { product: (typeof products)[number] }) {
-  const isExternal = !!product.link;
+  const isPro = !!product.link;
 
-  const cardContent = (
-    <>
+  return (
+    <Link
+      href={product.disabled ? "#" : `/product/${product.id}`}
+      className={`group relative flex flex-col rounded-2xl bg-white border border-[#e5e9f0] overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-[#2f6fed]/8 hover:border-[#2f6fed]/30 ${
+        product.disabled ? "opacity-50 pointer-events-none" : ""
+      }`}
+    >
       <div className="relative h-48 bg-gradient-to-br from-[#f0f4ff] to-[#e8f4f8] flex items-center justify-center overflow-hidden">
         {product.image && product.image !== "/products/placeholder.png" ? (
           <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
         ) : (
-          <div className={`text-6xl opacity-20 ${isExternal ? "rotate-45" : ""}`}>
-            {isExternal ? "🔗" : "📊"}
-          </div>
+          <div className="text-6xl opacity-20">📊</div>
         )}
         {product.tag && (
           <span className={`absolute top-3 right-3 px-2.5 py-0.5 text-xs font-bold text-white rounded-full ${
@@ -38,13 +41,13 @@ function ProductCard({ product }: { product: (typeof products)[number] }) {
         <p className="text-sm text-[#657086] leading-relaxed mb-4 flex-1 line-clamp-2">{product.subtitle}</p>
         {product.disabled ? (
           <span className="text-sm font-semibold text-[#657086]">Coming Soon</span>
-        ) : isExternal ? (
+        ) : isPro ? (
           <div className="flex items-center justify-between">
-            <span className="text-sm font-bold text-[#f59e0b]">Pro 用户登录使用 →</span>
+            <span className="text-xl font-extrabold text-[#2f6fed]">¥{product.price}</span>
             <span className="inline-flex items-center gap-1.5 px-5 py-2 text-sm font-bold text-white bg-gradient-to-r from-[#f59e0b] to-[#d97706] rounded-lg hover:from-[#d97706] hover:to-[#b45309] transition-colors">
-              登录使用
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              查看详情
+              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </span>
           </div>
@@ -60,28 +63,6 @@ function ProductCard({ product }: { product: (typeof products)[number] }) {
           </div>
         )}
       </div>
-    </>
-  );
-
-  if (isExternal) {
-    return (
-      <a
-        href="https://tool.tripawalpha.com"
-        target="_blank"
-        rel="noopener noreferrer"
-        className={`group relative flex flex-col rounded-2xl bg-white border border-[#e5e9f0] overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-[#2f6fed]/8 hover:border-[#2f6fed]/30 cursor-pointer ${product.disabled ? "opacity-50 pointer-events-none" : ""}`}
-      >
-        {cardContent}
-      </a>
-    );
-  }
-
-  return (
-    <Link
-      href={product.disabled ? "#" : `/product/${product.id}`}
-      className={`group relative flex flex-col rounded-2xl bg-white border border-[#e5e9f0] overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-[#2f6fed]/8 hover:border-[#2f6fed]/30 ${product.disabled ? "opacity-50 pointer-events-none" : ""}`}
-    >
-      {cardContent}
     </Link>
   );
 }
