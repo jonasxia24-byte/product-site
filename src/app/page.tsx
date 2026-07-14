@@ -14,18 +14,9 @@ function categoryProducts(cat: ProductCategory) {
 
 function ProductCard({ product }: { product: (typeof products)[number] }) {
   const isExternal = !!product.link;
-  const CardWrapper = isExternal ? "a" : Link;
-  const wrapperProps = isExternal
-    ? { href: product.link, target: "_blank", rel: "noopener noreferrer" }
-    : { href: product.disabled ? "#" : `/product/${product.id}` };
 
-  return (
-    <CardWrapper
-      {...wrapperProps}
-      className={`group relative flex flex-col rounded-2xl bg-white border border-[#e5e9f0] overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-[#2f6fed]/8 hover:border-[#2f6fed]/30 ${
-        product.disabled ? "opacity-50 pointer-events-none" : ""
-      } ${isExternal ? "cursor-pointer" : ""}`}
-    >
+  const cardContent = (
+    <>
       <div className="relative h-48 bg-gradient-to-br from-[#f0f4ff] to-[#e8f4f8] flex items-center justify-center overflow-hidden">
         <img
           src={product.image}
@@ -71,7 +62,29 @@ function ProductCard({ product }: { product: (typeof products)[number] }) {
           </div>
         )}
       </div>
-    </CardWrapper>
+    </>
+  );
+
+  if (isExternal) {
+    return (
+      <a
+        href={product.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`group relative flex flex-col rounded-2xl bg-white border border-[#e5e9f0] overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-[#2f6fed]/8 hover:border-[#2f6fed]/30 cursor-pointer ${product.disabled ? "opacity-50 pointer-events-none" : ""}`}
+      >
+        {cardContent}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      href={product.disabled ? "#" : `/product/${product.id}`}
+      className={`group relative flex flex-col rounded-2xl bg-white border border-[#e5e9f0] overflow-hidden transition-shadow duration-300 hover:shadow-lg hover:shadow-[#2f6fed]/8 hover:border-[#2f6fed]/30 ${product.disabled ? "opacity-50 pointer-events-none" : ""}`}
+    >
+      {cardContent}
+    </Link>
   );
 }
 
