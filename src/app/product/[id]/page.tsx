@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
             <span>{siteName}</span>
           </Link>
           <Link href="/" className="inline-flex items-center h-9 px-4 text-sm font-semibold text-[#657086] border border-[#e5e9f0] rounded-lg bg-white hover:border-[#2f6fed]/40 hover:text-[#2f6fed] transition-colors">
-            ← 返回列表
+            ← 返回首页
           </Link>
         </nav>
       </header>
@@ -96,6 +96,12 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
         <div className="mt-6 text-center text-sm text-[#657086]">
           如有问题，请联系{" "}
           {contactInfo.wechat && <span>微信：{contactInfo.wechat}</span>}
+          <Link href="/" className="inline-flex items-center gap-1 text-sm font-semibold text-[#2f6fed] hover:underline">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+            返回首页
+          </Link>
         </div>
       </main>
 
