@@ -240,7 +240,7 @@ export default function Home() {
             结构胜于预测，框架优于指标。加猫哥微信，开始系统化交易之路。
           </p>
           <img
-            src="/products/微信图片_2026-07-15_110922_508.png"
+            src="/products/微信图片_2026-07-15_110922_508.jpg"
             alt="猫哥微信二维码"
             className="w-40 h-40 mx-auto mb-6 rounded-xl border border-[#e5e7eb]"
           />
