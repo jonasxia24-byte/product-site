@@ -150,22 +150,37 @@ export default function Home() {
       <section id="research" className="w-full bg-[#fafaf8]">
         <Reveal>
         <div className="mx-auto max-w-[1040px] px-6 md:px-8 py-20 md:py-24">
-          <h2 className="text-2xl font-bold text-[#111827] mb-2">研究文章</h2>
-          <p className="text-[15px] text-[#6b7280] mb-10">持续更新的交易研究内容，后续由猫哥填充。</p>
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <h2 className="text-2xl font-bold text-[#111827] mb-2">研究文章</h2>
+              <p className="text-[15px] text-[#6b7280]">猫哥的原创交易研究，持续更新中。</p>
+            </div>
+            <Link href="/research" className="hidden md:inline-flex items-center gap-1.5 text-sm font-semibold text-[#111827] hover:text-[#0ea5e9] transition-colors">
+              查看全部
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </Link>
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              { topic: "缠论", title: "缠论研究文章", desc: "同构笔、中枢与级别递归的深度分析。" },
-              { topic: "市场结构", title: "市场结构分析", desc: "从价格行为到多周期框架的实战方法。" },
-              { topic: "系统化交易", title: "交易系统构建", desc: "如何建立可复现的决策流程与规则体系。" },
-            ].map((article) => (
-              <div key={article.title} className="rounded-2xl bg-white border border-[#e5e7eb] p-6 hover:shadow-sm hover:border-[#d1d5db] transition-all duration-300">
+            {["技术分析", "交易心理", "交易系统"].map((topic) => (
+              <Link
+                key={topic}
+                href="/research"
+                className="group rounded-2xl bg-white border border-[#e5e7eb] p-6 hover:shadow-sm hover:border-[#d1d5db] transition-all duration-300"
+              >
                 <span className="inline-block px-2.5 py-0.5 text-[11px] font-semibold text-[#6b7280] bg-[#f3f4f6] rounded-md mb-4">
-                  {article.topic}
+                  {topic}
                 </span>
-                <h3 className="text-base font-bold text-[#111827] mb-2">{article.title}</h3>
-                <p className="text-sm text-[#6b7280] leading-relaxed">{article.desc}</p>
-              </div>
+                <h3 className="text-base font-bold text-[#111827] mb-2 group-hover:text-[#0ea5e9] transition-colors">{topic}研究</h3>
+                <p className="text-sm text-[#6b7280] leading-relaxed">{topic === "技术分析" ? "缠论、同构笔、市场结构深度剖析。" : topic === "交易心理" ? "克服人性弱点，建立纪律性交易思维。" : "从策略设计到执行复盘，构建可复用的交易框架。"}</p>
+              </Link>
             ))}
+          </div>
+          <div className="mt-8 text-center md:hidden">
+            <Link href="/research" className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#111827] hover:text-[#0ea5e9] transition-colors">
+              查看全部文章 →
+            </Link>
           </div>
         </div>
         </Reveal>
