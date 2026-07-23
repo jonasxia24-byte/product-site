@@ -54,7 +54,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
           {/* Right: Image */}
           <div className="rounded-2xl overflow-hidden bg-white border border-[#e5e7eb]">
-            {product.image && product.image !== "/products/placeholder.png" ? (
+            {product.image && product.image !== "/products/placeholder.svg" ? (
               <img src={product.image} alt={product.name} className="w-full h-auto" />
             ) : (
               <div className="aspect-[4/3] flex items-center justify-center text-sm text-[#d1d5db]">暂无配图</div>

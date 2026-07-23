@@ -10,7 +10,7 @@ function ProductCard({ product }: { product: (typeof products)[number] }) {
     >
       {/* Image */}
       <div className="relative aspect-[4/3] bg-[#f3f4f6] overflow-hidden">
-        {product.image && product.image !== "/products/placeholder.png" ? (
+        {product.image && product.image !== "/products/placeholder.svg" ? (
           <img
             src={product.image}
             alt={product.name}
