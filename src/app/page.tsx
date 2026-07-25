@@ -1,4 +1,5 @@
 import { products } from "@/data/products";
+import { researchArticles } from "@/data/research";
 import Link from "next/link";
 import Reveal from "@/components/Reveal";
 
@@ -162,19 +163,17 @@ export default function Home() {
               </svg>
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {["技术分析", "交易心理", "交易系统"].map((topic) => (
-              <Link
-                key={topic}
-                href="/research"
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {researchArticles.slice(0, 4).map((article) => (
+              <a
+                key={article.id}
+                href={article.url}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="group rounded-2xl bg-white border border-[#e5e7eb] p-6 hover:shadow-sm hover:border-[#d1d5db] transition-all duration-300"
               >
-                <span className="inline-block px-2.5 py-0.5 text-[11px] font-semibold text-[#6b7280] bg-[#f3f4f6] rounded-md mb-4">
-                  {topic}
-                </span>
-                <h3 className="text-base font-bold text-[#111827] mb-2 group-hover:text-[#0ea5e9] transition-colors">{topic}研究</h3>
-                <p className="text-sm text-[#6b7280] leading-relaxed">{topic === "技术分析" ? "缠论、同构笔、市场结构深度剖析。" : topic === "交易心理" ? "克服人性弱点，建立纪律性交易思维。" : "从策略设计到执行复盘，构建可复用的交易框架。"}</p>
-              </Link>
+                <h3 className="text-base font-bold text-[#111827] mb-2 group-hover:text-[#0ea5e9] transition-colors">{article.title}</h3>
+              </a>
             ))}
           </div>
           <div className="mt-8 text-center md:hidden">
