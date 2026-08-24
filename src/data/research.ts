@@ -8,6 +8,20 @@ export interface ResearchArticle {
 
 export const researchArticles: ResearchArticle[] = [
   {
+    id: "art-30",
+    title: "做交易情绪容易崩溃的人，先戒掉这两件事——一个关于嘴，一个关于比",
+    summary: "系统没问题，是心乱了",
+    url: "https://mp.weixin.qq.com/s/19PDH_l16GoJ6S586nlCQQ",
+    date: "2026-08-14",
+  },
+  {
+    id: "art-29",
+    title: "学了10年交易，我终于明白：你在交易里学的东西，90%跟赚钱没关系",
+    summary: "交易真正的难题，从来不是知识不够",
+    url: "https://mp.weixin.qq.com/s/nmexWgwpeEZUOaMPJ1JpsA",
+    date: "2026-08-12",
+  },
+  {
     id: "art-15",
     title: "深度长文：零师（000师）到底是谁？这可能是全网最完整的一次回答",
     summary: "",
